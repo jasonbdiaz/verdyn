@@ -360,6 +360,7 @@ export default function Home() {
           <Logo size={24} />
           <nav className="flex items-center gap-6 text-sm font-medium text-pine/60">
             <a href="https://github.com/jasonbdiaz/verdyn" className="hover:text-green transition">GitHub</a>
+            <Link href="/restrictions" className="hover:text-green transition">Watering restrictions</Link>
             <Link href="/faq" className="hover:text-green transition">FAQ</Link>
             <Link href="/privacy" className="hover:text-green transition">Privacy</Link>
             <Link href="/terms" className="hover:text-green transition">Terms</Link>

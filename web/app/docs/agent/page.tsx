@@ -4,8 +4,9 @@ import Link from "next/link";
 import { Logo } from "@/components/Logo";
 
 export const metadata = {
-  title: "Connect your AI agent — Verdyn",
-  description: "Manage your Verdyn watering program from Claude or ChatGPT via MCP.",
+  title: "Connect Claude or ChatGPT to Your Sprinkler System — Verdyn",
+  description:
+    "Control your smart sprinklers from Claude or ChatGPT. Verdyn gives every account a personal MCP endpoint, so your AI assistant can read, explain, and adjust your watering program.",
 };
 
 const TOOL_LIST = [
@@ -30,12 +31,16 @@ export default function AgentDocs() {
 
       <article className="mx-auto max-w-3xl px-6 py-14 space-y-8">
         <div>
-          <h1 className="text-3xl font-extrabold text-pine">Connect your AI agent</h1>
+          <h1 className="text-3xl font-extrabold text-pine">Connect Claude or ChatGPT to your sprinkler system</h1>
           <p className="mt-3 text-pine/70">
-            Verdyn's Expert tier is <b>agent-native</b>: your account exposes a personal
+            Yes — your AI assistant can run your sprinklers. Verdyn's Expert tier is <b>agent-native</b>:
+            your account exposes a personal
             {" "}<a className="underline underline-offset-2" href="https://modelcontextprotocol.io" rel="noopener">MCP</a>{" "}
             endpoint, so any MCP-capable assistant — Claude, ChatGPT, or your own agent —
-            can read and manage your watering program the same way the app does.
+            can read and manage your watering program the same way the app does. It works the same
+            way you'd connect Claude to any smart-home device, except irrigation is the one place
+            an agent gets real agronomy to reason with: live weather, soil, grass type, and your
+            local watering restrictions.
           </p>
         </div>
 

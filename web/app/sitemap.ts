@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { METROS } from "@/lib/restrictions-content";
 
 const SITE = "https://verdyn.app";
 
@@ -21,6 +22,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     route("/", 1.0, "weekly"),
     route("/pricing", 0.9, "weekly"),
     route("/faq", 0.8, "monthly"),
+    route("/docs/agent", 0.8, "monthly"),
+    route("/docs/self-host", 0.7, "monthly"),
+    route("/restrictions", 0.8, "weekly"),
+    ...METROS.map((m) => route(`/restrictions/${m.slug}`, 0.7, "monthly")),
     route("/pro", 0.7, "monthly"),
     route("/onboarding", 0.6, "monthly"),
     route("/privacy", 0.3, "yearly"),
