@@ -25,12 +25,12 @@ export default function FaqPage() {
       <header className="sticky top-0 z-20 backdrop-blur bg-mist/80 border-b border-pine/5">
         <div className="mx-auto max-w-4xl px-6 h-16 flex items-center justify-between">
           <Link href="/"><Logo /></Link>
-          <Link
-            href="/onboarding"
+          <a
+            href="https://github.com/jasonbdiaz/verdyn"
             className="rounded-full px-5 py-2 text-cloud font-semibold brand-gradient shadow-sm hover:opacity-90 transition"
           >
-            Get started
-          </Link>
+            GitHub
+          </a>
         </div>
       </header>
 
@@ -88,10 +88,15 @@ export default function FaqPage() {
         {/* CTA */}
         <div className="mt-16 rounded-2xl brand-gradient p-8 text-center text-cloud">
           <h2 className="text-2xl font-bold">Still have a question?</h2>
-          <p className="mt-2 text-cloud/85">The fastest way to see what Verdyn does is to connect your B-hyve.</p>
-          <Link href="/onboarding" className="inline-block mt-5 rounded-full bg-cloud px-7 py-3 font-semibold text-green hover:opacity-90 transition">
-            Get started free
-          </Link>
+          <p className="mt-2 text-cloud/85">Verdyn is open source — read exactly how it works, or email us anytime.</p>
+          <div className="mt-5 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <a href="https://github.com/jasonbdiaz/verdyn" className="inline-block rounded-full bg-cloud px-7 py-3 font-semibold text-green hover:opacity-90 transition">
+              View on GitHub →
+            </a>
+            <a href="mailto:hello@verdyn.app" className="inline-block rounded-full px-7 py-3 font-semibold text-cloud border border-cloud/40 hover:bg-cloud/10 transition">
+              Email us
+            </a>
+          </div>
         </div>
 
         <p className="mt-10 text-xs text-pine/45">{brand.legal}</p>

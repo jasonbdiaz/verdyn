@@ -55,29 +55,29 @@ const TIERS: {
 }[] = [
   {
     name: "Open source",
-    price: "clone it · free forever",
-    body: "The whole engine is public. Self-host it and own every byte.",
+    price: "available today · free forever",
+    body: "The whole product is public. Self-host it and own every byte.",
     points: [
       "Full agronomy engine + automated executor",
       "Runs with or without a database",
       "Your credentials never leave your servers",
     ],
+    featured: true,
   },
   {
-    name: "Expert · Agentic",
-    price: "free hosted account",
-    body: "Sign up, connect your controller, and drive it from Claude or ChatGPT over MCP.",
+    name: "Hosted · Agentic",
+    price: "coming soon",
+    body: "A hosted account with a personal MCP endpoint — drive your watering from Claude or ChatGPT. Opening once billing is live.",
     points: [
       "Personal MCP endpoint for your AI agent",
       "Hosted automation: cron executor, weather gates, run ledger",
       "Safety windows enforced server-side — always",
     ],
-    featured: true,
   },
   {
     name: "Managed",
-    price: "we do everything",
-    body: "For people who'd rather never think about irrigation — or AI.",
+    price: "coming soon",
+    body: "We set everything up and keep it tuned — for people who'd rather never think about irrigation.",
     points: [
       "White-glove setup, zones tuned to your yard",
       "One-time Orbit sign-in — your password is never stored",
@@ -97,13 +97,13 @@ export default function Home() {
           <Logo />
           <nav className="flex items-center gap-7 text-sm font-medium">
             <a href="#how" className="hidden sm:inline hover:text-green transition">How it works</a>
-            <Link href="/pricing" className="hidden sm:inline hover:text-green transition">Pricing</Link>
             <Link href="/faq" className="hidden sm:inline hover:text-green transition">FAQ</Link>
+            <a href="https://github.com/jasonbdiaz/verdyn" className="hidden sm:inline hover:text-green transition">GitHub</a>
             <Link
               href="/onboarding"
-              className="rounded-full px-5 py-2 text-cloud font-semibold brand-gradient shadow-sm hover:opacity-90 transition"
+              className="rounded-full px-5 py-2 font-semibold text-pine border border-pine/15 hover:border-green/40 hover:text-green transition"
             >
-              Get started
+              Coming soon
             </Link>
           </nav>
         </div>
@@ -122,23 +122,23 @@ export default function Home() {
             <p className="mt-6 max-w-xl text-lg sm:text-xl text-pine/70 mx-auto lg:mx-0">
               {brand.oneLiner} Verdyn turns the controller you already own into a
               smart, agronomy-driven irrigation system — soil, season, weather, and
-              local rules, all handled for you. <span className="font-semibold text-pine">Free, forever.</span>
+              local rules, all handled for you. <span className="font-semibold text-pine">Open source, and your credentials never leave your servers.</span>
             </p>
-            <div className="mt-9 flex items-center justify-center lg:justify-start gap-3">
-              <Link
-                href="/onboarding"
+            <div className="mt-9 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
+              <a
+                href="https://github.com/jasonbdiaz/verdyn"
                 className="rounded-full px-7 py-3.5 text-cloud font-semibold brand-gradient shadow-lg shadow-green/20 hover:opacity-90 transition"
               >
-                Make my B-hyve smarter
-              </Link>
+                Run it yourself — open source →
+              </a>
               <a
                 href="#how"
                 className="rounded-full px-7 py-3.5 font-semibold text-pine border border-pine/15 hover:border-green/40 hover:text-green transition"
               >
-                See how
+                See how it works
               </a>
             </div>
-            <p className="mt-4 text-sm text-pine/50">Free forever · No new hardware · 2-minute setup · No card required</p>
+            <p className="mt-4 text-sm text-pine/50">Open source today · No new hardware · Self-host in minutes · Hosted accounts coming soon</p>
           </div>
 
           {/* hero photo */}
@@ -300,11 +300,11 @@ export default function Home() {
       <section id="plans" className="bg-cloud border-y border-pine/5">
         <div className="mx-auto max-w-6xl px-6 py-20">
           <Reveal as="h2" className="text-3xl sm:text-4xl font-bold text-center">
-            Free where it matters. Effortless when you want it.
+            Three ways to run it. One is open right now.
           </Reveal>
           <Reveal as="p" delay={80} className="mt-3 text-center text-pine/65 max-w-2xl mx-auto">
-            The smart engine is free for every homeowner — for good. Upgrade only when
-            you want Verdyn to run the whole yard for you, or to manage it as a business.
+            The entire engine is open source and free to self-host today. Hosted and
+            managed accounts are coming soon, once the payment portal is live.
           </Reveal>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {TIERS.map((t, i) => (
@@ -327,9 +327,9 @@ export default function Home() {
             ))}
           </div>
           <Reveal delay={320} className="mt-10 text-center">
-            <Link href="/pricing" className="text-sm font-semibold text-green hover:underline">
-              Compare plans in full →
-            </Link>
+            <a href="https://github.com/jasonbdiaz/verdyn" className="text-sm font-semibold text-green hover:underline">
+              Read the source on GitHub →
+            </a>
           </Reveal>
         </div>
       </section>
@@ -338,18 +338,19 @@ export default function Home() {
       <section className="mx-auto max-w-4xl px-6 py-24 text-center">
         <Reveal as="h2" className="text-3xl sm:text-5xl font-bold">Your grass is thirsty for smarter.</Reveal>
         <Reveal as="p" delay={80} className="mt-4 text-lg text-pine/70">
-          Connect your B-hyve and let Verdyn build your first plan in minutes — free.
+          Verdyn is open source. Clone the repo, point it at your B-hyve, and let it
+          build your first plan in minutes — your credentials never leaving your servers.
         </Reveal>
         <Reveal delay={160}>
-          <Link
-            href="/onboarding"
+          <a
+            href="https://github.com/jasonbdiaz/verdyn"
             className="inline-block mt-8 rounded-full px-8 py-4 text-cloud font-semibold brand-gradient shadow-lg shadow-green/20 hover:opacity-90 transition"
           >
-            Start free — make my B-hyve smarter
-          </Link>
+            View on GitHub →
+          </a>
         </Reveal>
         <Reveal as="p" delay={220} className="mt-4 text-sm text-pine/50">
-          Open source · No card, ever · Your controller stays yours
+          Open source · Your controller stays yours · Hosted accounts coming soon
         </Reveal>
       </section>
 
@@ -358,11 +359,10 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
           <Logo size={24} />
           <nav className="flex items-center gap-6 text-sm font-medium text-pine/60">
-            <Link href="/pricing" className="hover:text-green transition">Pricing</Link>
+            <a href="https://github.com/jasonbdiaz/verdyn" className="hover:text-green transition">GitHub</a>
             <Link href="/faq" className="hover:text-green transition">FAQ</Link>
             <Link href="/privacy" className="hover:text-green transition">Privacy</Link>
             <Link href="/terms" className="hover:text-green transition">Terms</Link>
-            <Link href="/onboarding" className="hover:text-green transition">Get started</Link>
           </nav>
           <p className="text-xs text-pine/45 max-w-md text-center sm:text-right">
             {brand.legal}

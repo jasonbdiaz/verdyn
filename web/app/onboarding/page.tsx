@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Logo } from "@/components/Logo";
 import { saveIntent } from "@/lib/setup-intent";
+import { LAUNCHED } from "@/lib/launch";
+import ComingSoon from "@/components/ComingSoon";
 
 // Pre-account onboarding. We collect the bare minimum (who it's for, which
 // system) and then create the account FIRST — the magic link signs you in and
@@ -26,7 +28,21 @@ const META: Record<WStep, { title: string; subtitle: string }> = {
   },
 };
 
-export default function Onboarding() {
+export default function OnboardingPage() {
+  // Hosted sign-up is gated until the payment portal is live. Self-hosters run
+  // the full flow from their own deployment where LAUNCHED is on.
+  if (!LAUNCHED) {
+    return (
+      <ComingSoon
+        title="Verdyn accounts are coming soon"
+        blurb="Hosted sign-up opens once our payment portal is live. Today the whole engine is open source — clone the repo and run your own instance in minutes, credentials never leaving your servers."
+      />
+    );
+  }
+  return <OnboardingFlow />;
+}
+
+function OnboardingFlow() {
   const router = useRouter();
   const [expert, setExpert] = useState(false);
   const [idx, setIdx] = useState(0);

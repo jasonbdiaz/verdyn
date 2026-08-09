@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
+import { LAUNCHED } from "@/lib/launch";
+import ComingSoon from "@/components/ComingSoon";
 
 export const metadata: Metadata = {
-  title: "Three ways to run Verdyn — open source, agentic, or managed",
+  title: "Verdyn — open source smart irrigation",
   description:
-    "Verdyn is open source. Self-host the whole engine free, sign up for the hosted Expert tier and drive it with your own AI agent over MCP, or have us run everything for you.",
+    "Verdyn is open source: self-host the entire agronomy engine, web app, unattended executor, and MCP server free. Hosted plans are coming soon.",
   alternates: { canonical: "/pricing" },
 };
 
@@ -56,6 +58,20 @@ const PATHS = [
 ];
 
 export default function PricingPage() {
+  // Plans/checkout are gated until the payment portal is live. Self-hosting is
+  // free and available today via the open-source repo.
+  if (!LAUNCHED) {
+    return (
+      <ComingSoon
+        title="Plans are coming soon"
+        blurb="We're standing up the payment portal now. Until then, Verdyn is fully open source — self-host the entire engine, web app, and MCP server for free. Hosted and managed plans open shortly."
+      />
+    );
+  }
+  return <PricingContent />;
+}
+
+function PricingContent() {
   return (
     <main className="min-h-screen">
       <header className="sticky top-0 z-20 backdrop-blur bg-mist/80 border-b border-pine/5">
