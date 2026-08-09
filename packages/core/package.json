@@ -11,9 +11,10 @@
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "test": "node --test"
+    "test": "tsx --test src/*.test.mjs src/**/*.test.mjs"
   },
   "devDependencies": {
+    "tsx": "^4.23.11",
     "typescript": "^5.6.0"
   }
 }

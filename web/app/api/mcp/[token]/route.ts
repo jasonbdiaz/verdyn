@@ -17,6 +17,7 @@ import {
   entitlementActive, type LawnProfile,
 } from "@verdyn/core";
 import { accountForAgentToken } from "@/lib/agent-token-store";
+import { rateLimit, clientIp } from "@/lib/ratelimit";
 import { getHomeProfile, saveHomeProfile } from "@/lib/home-profile-store";
 import { getLinkStatus, setAutoRun } from "@/lib/bhyve-link-store";
 import { getEntitlement } from "@/lib/entitlement-store";
@@ -240,6 +241,15 @@ async function handleMessage(accountId: string, msg: RpcMessage) {
 }
 
 export async function POST(req: NextRequest, ctx: { params: Promise<{ token: string }> }) {
+  // Generous per-IP cap. An agent conversation stays far below this; what it
+  // stops is key-guessing floods hammering the token lookup. (The keyspace
+  // itself — 192 random bits, hashed at rest — is not brute-forceable.)
+  const rl = rateLimit(`mcp:${clientIp(req)}`, 240, 10 * 60 * 1000);
+  if (!rl.ok) {
+    return NextResponse.json(rpcError(null, -32000, "Rate limited. Slow down and retry."), {
+      status: 429, headers: { "Retry-After": String(rl.retryAfterSec) },
+    });
+  }
   const { token } = await ctx.params;
   const accountId = await accountForAgentToken(token);
   if (!accountId) {
