@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "Verdyn",
+    "slug": "verdyn",
+    "version": "0.1.0",
+    "scheme": "verdyn",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#08231B"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.verdyn.app"
+    },
+    "android": {
+      "package": "com.verdyn.app",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#08231B"
+      }
+    },
+    "plugins": [
+      "expo-router",
+      "expo-asset"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

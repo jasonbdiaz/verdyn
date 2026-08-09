@@ -1,0 +1,127 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap");
+@import "tailwindcss";
+
+/* Verdyn design tokens — mirrors packages/core/src/brand.ts.
+   Kept in CSS too so Tailwind utilities (bg-green, text-pine…) resolve. */
+@theme {
+  --color-green: #0E7C5A;
+  --color-sprout: #8BE04A;
+  --color-pine: #08231B;
+  --color-tide: #16B6C4;
+  --color-mist: #F4FAF6;
+  --color-cloud: #FFFFFF;
+  --color-clay: #E8A13A;
+  --color-ember: #E5544B;
+  --color-rest: #9CB4A8;
+
+  --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+:root {
+  --brand-gradient: linear-gradient(135deg, #0E7C5A 0%, #8BE04A 100%);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-mist);
+  color: var(--color-pine);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, .display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+.brand-gradient {
+  background: var(--brand-gradient);
+}
+.brand-gradient-text {
+  background: var(--brand-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ── scroll + hero animation ──────────────────────────────────── */
+
+/* reveal-on-scroll: content is VISIBLE by default (so no-JS / slow hydration can
+   never blank the page). JS adds `.reveal-pre` only to below-the-fold elements to
+   hide them just before they animate in. */
+.reveal {
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.reveal-pre {
+  opacity: 0;
+  transform: translateY(28px);
+  will-change: opacity, transform;
+}
+
+/* gentle float for the hero blob / sun */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+.animate-float { animation: float 7s ease-in-out infinite; }
+
+/* sweeping water spray fan */
+@keyframes spray-sweep {
+  0%, 100% { transform: rotate(-32deg); }
+  50% { transform: rotate(32deg); }
+}
+.spray-fan {
+  transform-origin: 240px 300px;
+  animation: spray-sweep 4.5s ease-in-out infinite;
+}
+
+/* water droplets arcing out of the head */
+@keyframes droplet {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.6); }
+  15% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(1); }
+}
+.droplet {
+  animation: droplet 2.4s ease-out infinite;
+  transform-box: fill-box;
+}
+
+/* scroll progress bar */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  z-index: 50;
+  background: var(--brand-gradient);
+  transform-origin: 0 50%;
+  transition: transform 0.08s linear;
+}
+
+/* ── Verdyn Link (Plaid-style connect modal) ──────────────────── */
+@keyframes link-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes link-rise {
+  from { opacity: 0; transform: translateY(18px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes link-pop {
+  0% { transform: scale(0.4); opacity: 0; }
+  60% { transform: scale(1.12); }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes link-spin { to { transform: rotate(360deg); } }
+.link-backdrop { animation: link-fade 0.18s ease-out; }
+.link-card { animation: link-rise 0.26s cubic-bezier(0.22, 1, 0.36, 1); }
+.link-check { animation: link-pop 0.42s cubic-bezier(0.22, 1, 0.36, 1); }
+.link-spinner { animation: link-spin 0.8s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal.reveal-pre { opacity: 1; transform: none; transition: none; }
+  .animate-float, .spray-fan, .droplet { animation: none; }
+  .link-backdrop, .link-card, .link-check { animation: none; }
+}

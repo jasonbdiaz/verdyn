@@ -1,0 +1,21 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Verdyn app icon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1024" y2="1024" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#08231B"/>
+      <stop offset="1" stop-color="#0E7C5A"/>
+    </linearGradient>
+    <linearGradient id="drop" x1="360" y1="180" x2="720" y2="860" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8BE04A"/>
+      <stop offset="1" stop-color="#0E7C5A"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="1024" rx="230" fill="url(#bg)"/>
+  <path d="M512 170
+           C512 170 760 460 760 670
+           C760 814 649 920 512 920
+           C375 920 264 814 264 670
+           C264 470 320 390 512 170 Z"
+        fill="url(#drop)"/>
+  <path d="M512 330 C455 500 400 640 400 800" stroke="#F4FAF6" stroke-opacity="0.9" stroke-width="34" stroke-linecap="round" fill="none"/>
+  <path d="M484 520 L400 565 M470 640 L388 690" stroke="#F4FAF6" stroke-opacity="0.75" stroke-width="28" stroke-linecap="round"/>
+</svg>

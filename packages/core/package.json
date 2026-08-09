@@ -1,0 +1,19 @@
+{
+  "name": "@verdyn/core",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Verdyn shared agronomy + scheduling engine",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0"
+  }
+}

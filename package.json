@@ -1,0 +1,22 @@
+{
+  "name": "verdyn",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Verdyn — pro-grade irrigation intelligence for any B-hyve. Monorepo: shared core engine, web app, iOS app.",
+  "workspaces": [
+    "packages/*",
+    "web",
+    "mobile"
+  ],
+  "overrides": {
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "@types/react": "19.1.10"
+  },
+  "scripts": {
+    "typecheck": "npm run typecheck -w @verdyn/core && npm run typecheck -w @verdyn/web",
+    "test": "npm run test -w @verdyn/core",
+    "dev": "npm run dev -w @verdyn/web",
+    "build": "npm run build -w @verdyn/web"
+  }
+}
