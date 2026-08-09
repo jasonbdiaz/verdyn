@@ -13,6 +13,23 @@ const MAX_IMAGE_BYTES = 4 * 1024 * 1024; // ~4MB; a downscaled JPEG is far small
 const DATA_URL_RE = /^data:image\/(png|jpe?g|webp|heic|heif);base64,/i;
 
 export async function POST(req: Request) {
+  // Defense-in-depth for a paid vision call: this route is intentionally
+  // anonymous (onboarding has no account yet), so we can't gate on a session —
+  // but the app's own UI always sends a same-origin `Origin`. Reject a request
+  // that carries a *mismatched* Origin (a drive-by cross-site script) while
+  // still allowing our own fetch and headless clients that omit it entirely
+  // (those are already capped by the per-IP limit below).
+  const origin = req.headers.get("origin");
+  if (origin) {
+    try {
+      if (new URL(origin).host !== req.headers.get("host")) {
+        return NextResponse.json({ guess: null, reason: "bad_origin" }, { status: 403 });
+      }
+    } catch {
+      return NextResponse.json({ guess: null, reason: "bad_origin" }, { status: 403 });
+    }
+  }
+
   const ip = clientIp(req);
   const rl = rateLimit(`head-scan:${ip}`, 20, 10 * 60 * 1000); // 20 / 10 min
   if (!rl.ok) {

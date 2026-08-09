@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import {
-  emptyProfile, climateZoneForZip, hasPro, propertyLimit,
+  emptyProfile, climateZoneForZip, hasPro, propertyLimit, SOIL_TYPES,
   type LawnProfile, type ZoneProfile, type SoilTextureId,
 } from "@verdyn/core";
 import { readJson, isZip } from "@/lib/validate";
@@ -57,7 +57,11 @@ export async function POST(req: Request) {
 
   const zip = data.zip as string;
   const parity = data.parity === "even" ? "even" : "odd";
-  const soil = (data.soil as SoilTextureId) || "loam";
+  // Validate soil against the known set instead of trusting the raw string into
+  // the JSONB row — mirrors validateProfile()'s enum enforcement on onboarding.
+  const soil: SoilTextureId = SOIL_TYPES.some((s) => s.id === data.soil)
+    ? (data.soil as SoilTextureId)
+    : "loam";
 
   // Pro is Expert-grade, so resolve the AI county restriction for this address.
   const { restriction } = await resolveLocalRestriction(zip, "expert");

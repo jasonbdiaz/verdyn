@@ -3,13 +3,18 @@ import { cookies } from "next/headers";
 import { bhyve } from "@verdyn/core";
 import { unseal, SESSION_COOKIE } from "@/lib/session";
 import { rateLimit, clientIp } from "@/lib/ratelimit";
+import { currentAccountId } from "@/lib/account";
+import { deleteBhyveLink } from "@/lib/bhyve-link-store";
 
 export const runtime = "nodejs";
 
 // Cancel a Verdyn subscription. This is the teardown the product promises:
 //   1. Stop any cycle Verdyn has running on every controller (best-effort).
-//   2. Revoke our session token so we can no longer send commands — this cuts
-//      ALL future automated programming, not just today's run.
+//   2. Delete the persisted B-hyve link — the sealed token + auto_run flag the
+//      15-min cron reads. This is the real kill switch: without it the cron keeps
+//      watering even after the browser cookie is cleared (entitlements never
+//      lapse on their own). Mirrors /api/bhyve/disconnect and /api/account/reset.
+//   3. Clear our session cookie so this browser can no longer send commands.
 // The user's controller and B-hyve app are untouched and remain theirs.
 export async function POST(req: Request) {
   const rl = rateLimit(`cancel:${clientIp(req)}`, 10, 10 * 60 * 1000);
@@ -39,6 +44,13 @@ export async function POST(req: Request) {
       teardownError = (e as Error).message;
     }
   }
+
+  // Sever the persisted link so the cron stops programming this account. Best-
+  // effort and non-fatal — we still revoke the cookie below no matter what.
+  try {
+    const accountId = await currentAccountId();
+    if (accountId) await deleteBhyveLink(accountId);
+  } catch { /* non-fatal — cookie revocation below still cuts this browser */ }
 
   // Revoke access regardless of teardown outcome.
   const res = NextResponse.json({

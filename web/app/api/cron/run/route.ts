@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { timingSafeEqual } from "node:crypto";
 import { runDueCycles } from "@/lib/execute";
 
 export const runtime = "nodejs";
@@ -19,7 +20,10 @@ function authorized(req: Request): boolean {
   const secret = process.env.CRON_SECRET;
   if (!secret) return false;
   const hdr = req.headers.get("authorization");
-  return hdr === `Bearer ${secret}`;
+  if (!hdr) return false;
+  const expected = Buffer.from(`Bearer ${secret}`);
+  const got = Buffer.from(hdr);
+  return got.length === expected.length && timingSafeEqual(got, expected);
 }
 
 async function handle(req: Request) {
