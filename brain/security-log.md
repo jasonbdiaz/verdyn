@@ -39,6 +39,20 @@ first pass (deps + MCP rate cap) already shipped in `b4c02df`.
   fall back to `loam` — mirrors `validateProfile()`.
 
 All five verified: `tsc --noEmit` clean, `npm run build` green, `npm test` 69/69 pass.
+Committed (`2f17a81`) + pushed to GitHub.
+
+### ⚠️ ESCALATED — awaiting owner deploy
+
+**These fixes (and the first-pass fix `b4c02df`) are NOT confirmed live.** `verdyn.app`
+is served by the Vercel project **`verdyn-web`** (not the similarly-named stale `web`
+project). Git push does **not** reliably auto-deploy — the latest prod deployment
+predates this commit. Production `vercel --prod` is intentionally blocked by the
+auto-mode classifier without an explicit per-deploy go-ahead. **Owner action:** from
+`/Users/jbd/verdyn` (already linked to `verdyn-web`, Root Directory = `web`) run:
+`! vercel --prod --yes`  — then confirm `vercel ls verdyn-web` shows ● Ready and
+re-probe: `curl -s -X POST https://verdyn.app/api/identify-head -H 'Origin: https://evil.example' -d '{"image":"x"}'`
+should return `bad_origin` (403). Until deployed, the cancel kill-switch gap remains
+live for any real user who cancels.
 
 ### INFO / accepted (no action)
 
