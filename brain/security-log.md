@@ -41,18 +41,24 @@ first pass (deps + MCP rate cap) already shipped in `b4c02df`.
 All five verified: `tsc --noEmit` clean, `npm run build` green, `npm test` 69/69 pass.
 Committed (`2f17a81`) + pushed to GitHub.
 
-### ⚠️ ESCALATED — awaiting owner deploy
+### ✅ DEPLOYED + VERIFIED LIVE (2026-08-09)
 
-**These fixes (and the first-pass fix `b4c02df`) are NOT confirmed live.** `verdyn.app`
-is served by the Vercel project **`verdyn-web`** (not the similarly-named stale `web`
-project). Git push does **not** reliably auto-deploy — the latest prod deployment
-predates this commit. Production `vercel --prod` is intentionally blocked by the
-auto-mode classifier without an explicit per-deploy go-ahead. **Owner action:** from
-`/Users/jbd/verdyn` (already linked to `verdyn-web`, Root Directory = `web`) run:
-`! vercel --prod --yes`  — then confirm `vercel ls verdyn-web` shows ● Ready and
-re-probe: `curl -s -X POST https://verdyn.app/api/identify-head -H 'Origin: https://evil.example' -d '{"image":"x"}'`
-should return `bad_origin` (403). Until deployed, the cancel kill-switch gap remains
-live for any real user who cancels.
+Owner ran `vercel --prod` from `/Users/jbd/verdyn` → deployment
+`verdyn-bp8saz364`, aliased to **verdyn.app**, `next build` green, 36 routes.
+Post-deploy probes all confirm the fixes are live:
+- `identify-head` forged `Origin: https://evil.example` → **403 `bad_origin`**;
+  same-origin bad body → **400 `bad_image`** (legit onboarding scanner still works).
+- `auth/request` → `{"ok":true}` with **no `devLink`** in the body.
+- `cron/run` unauthenticated → **401**.
+- storefront **200** with CSP + HSTS intact.
+
+**Deploy-topology note for next time:** `verdyn.app` is served by the Vercel
+project **`verdyn-web`** (NOT the confusable stale `web` project). Git push does
+NOT reliably auto-deploy — deploy manually with `vercel --prod --yes` from the repo
+ROOT `/Users/jbd/verdyn` (project Root Directory = `web`, so deploying from `web/`
+fails looking for `web/web`). A stray `vercel ls` re-links to the wrong project and
+rewrites `.env.local` with the dev environment — re-link with
+`vercel link --project verdyn-web --yes` if that happens.
 
 ### INFO / accepted (no action)
 
