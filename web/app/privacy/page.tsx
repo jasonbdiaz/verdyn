@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <LegalLayout eyebrow="Legal" title="Privacy Policy" updated="June 14, 2026">
+    <LegalLayout eyebrow="Legal" title="Privacy Policy" updated="August 9, 2026">
       <P>
         This policy explains, in plain English, what data Verdyn collects, how we
         use it, and the choices you have. The short version: we ask for the
@@ -40,10 +40,25 @@ export default function PrivacyPage() {
           <li><strong>Operational data:</strong> basic, short-lived technical logs (e.g., error counts and rate-limit counters) used to keep the service reliable and secure. We do not sell this or use it for advertising.</li>
         </UL>
         <P>
-          We do <strong>not</strong> collect your B-hyve password, payment-card numbers
-          (handled by our payment processor, not stored by us), or precise location
-          beyond the ZIP code you provide.
+          We do <strong>not</strong> collect your B-hyve password, any payment details
+          (hosted Verdyn accounts are free — there is no payment rail to store), or
+          precise location beyond the ZIP code you provide.
         </P>
+      </Section>
+
+      <Section id="agents" title="Connecting an AI agent (MCP)">
+        <P>
+          The Expert tier lets you connect your own assistant — Claude, ChatGPT, or
+          any MCP client — to your account. This is opt-in, and it is designed so
+          that no private data is shared or stored beyond what you already gave us:
+        </P>
+        <UL>
+          <li><strong>Nothing is pushed anywhere.</strong> Verdyn never sends your data to an AI provider. Your assistant pulls from your endpoint only when you ask it something, over HTTPS.</li>
+          <li><strong>Your agent sees only your own account:</strong> the lawn profile, schedule, run history, and public weather — the same things your dashboard shows. It cannot see your B-hyve credentials (we don&apos;t have them), your email, other accounts, or anything else.</li>
+          <li><strong>We never see your conversations.</strong> The endpoint receives individual tool calls, not your chat. We store no prompts, no transcripts, and no record of what you and your assistant discussed — only the timestamp of the key&apos;s last use.</li>
+          <li><strong>The key is yours to kill:</strong> it&apos;s shown once, only its hash is stored (like a password), and revoking it from the dashboard cuts off any connected agent immediately.</li>
+          <li><strong>Nothing is used for training</strong> — by us (we don&apos;t train models on your data) and nothing is handed to model providers for them to train on either.</li>
+        </UL>
       </Section>
 
       <Section id="use" title="How we use it">
@@ -59,7 +74,8 @@ export default function PrivacyPage() {
         <UL>
           <li><strong>Orbit / B-hyve:</strong> to read your zones and send watering commands. Verdyn is an independent product and uses an unofficial interface, which Orbit may change at any time.</li>
           <li><strong>Open-Meteo:</strong> weather and evapotranspiration data, looked up by ZIP. No personal account data is sent.</li>
-          <li><strong>Hosting &amp; payments:</strong> our infrastructure and payment processors handle delivery and billing under their own terms.</li>
+          <li><strong>AI models (optional features only):</strong> if you use the sprinkler-head photo scanner, that photo is processed transiently by a vision model and is not stored by Verdyn; the Expert restriction-research feature sends only a ZIP code. Neither ever includes your name, email, or credentials.</li>
+          <li><strong>Hosting:</strong> our infrastructure providers handle delivery under their own terms.</li>
         </UL>
       </Section>
 
@@ -98,7 +114,7 @@ export default function PrivacyPage() {
         <P>
           We may update this policy as the product evolves; we&apos;ll revise the
           &ldquo;last updated&rdquo; date above. Questions or data requests:
-          contact us at privacy@verdyn.com.
+          contact us at privacy@verdyn.app.
         </P>
       </Section>
     </LegalLayout>

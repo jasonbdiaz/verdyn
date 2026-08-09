@@ -97,6 +97,26 @@ export default function AgentDocs() {
             adjust the program, never bypass the guardrails.
           </p>
         </section>
+
+        <section className="space-y-3">
+          <h2 className="text-xl font-bold text-pine">Privacy: what your agent can and can&apos;t see</h2>
+          <div className="rounded-xl bg-cloud border border-pine/5 px-5 py-4 text-pine/75 text-[15px] space-y-2">
+            <p>
+              Connecting an agent shares and stores <b>no new private data</b>. Your assistant can
+              read exactly what your dashboard shows — this account&apos;s lawn profile, schedule,
+              run history, and public weather — and nothing else.
+            </p>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>It <b>cannot</b> see your B-hyve credentials (Verdyn never stores your password), your email, or any other account.</li>
+              <li>Verdyn <b>never sees your conversations</b> — the endpoint receives individual tool calls, and we store no prompts or transcripts, only the key&apos;s last-used timestamp.</li>
+              <li>Nothing is pushed to any AI provider — your assistant pulls from your endpoint only when you ask, and nothing is used for model training.</li>
+              <li>Only the key&apos;s SHA-256 hash is stored; revoking it in the dashboard cuts off any connected agent instantly.</li>
+            </ul>
+            <p className="text-sm text-pine/55">
+              Full details in the <Link href="/privacy#agents" className="underline underline-offset-2">privacy policy</Link>.
+            </p>
+          </div>
+        </section>
       </article>
     </main>
   );

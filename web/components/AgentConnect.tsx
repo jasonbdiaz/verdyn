@@ -71,6 +71,12 @@ export default function AgentConnect() {
           and manage your watering program by conversation: &ldquo;why did we skip today?&rdquo;,
           &ldquo;set the back zone to shade&rdquo;, &ldquo;pause watering while I reseed.&rdquo;
         </p>
+        <p className="mt-2 text-xs text-pine/50">
+          Private by design: your agent sees only this account&apos;s lawn data, Verdyn never sees your
+          conversations, and nothing new is shared or stored — the key is hashed like a password and
+          revocable here any time.{" "}
+          <a href="/privacy#agents" className="underline underline-offset-2 hover:text-pine">Details</a>
+        </p>
 
         {freshUrl && (
           <div className="mt-4 rounded-lg bg-clay/10 border border-clay/25 p-4">

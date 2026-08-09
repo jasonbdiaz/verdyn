@@ -58,6 +58,12 @@ ChatGPT, or any MCP client at your instance and manage your watering program by 
 validated the same way the web app validates. Agent guide:
 [verdyn.app/docs/agent](https://verdyn.app/docs/agent).
 
+**No private data is shared or stored by the agent connection.** An agent reads only its own
+account's lawn data (the same things the dashboard shows), the server stores no prompts or
+transcripts (only the key's last-used timestamp), keys are stored as SHA-256 hashes and are
+revocable instantly, and nothing is ever pushed to a model provider or used for training —
+your assistant pulls from the endpoint only when you ask it to.
+
 ## Layout
 
 npm-workspaces monorepo:
