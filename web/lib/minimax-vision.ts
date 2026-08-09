@@ -39,11 +39,16 @@ const clamp01 = (n: unknown): number => {
 };
 
 /**
- * @param imageUrl a data: URL (base64) or http(s) URL of the head photo.
+ * @param imageUrl a base64 `data:image/...` URL of the head photo. Only data:
+ * URLs are accepted — never a remote http(s) URL — so a caller can't turn the
+ * vision model into a server-side fetcher of an attacker-chosen URL (the scheme
+ * check lives here, not just in the route, so every caller is safe by default).
  */
+const DATA_IMAGE_RE = /^data:image\/(png|jpe?g|webp|heic|heif);base64,/i;
 export async function identifyHeadFromImage(imageUrl: string): Promise<HeadGuess | null> {
   const key = process.env.MINIMAX_API_KEY;
   if (!key) return null;
+  if (typeof imageUrl !== "string" || !DATA_IMAGE_RE.test(imageUrl)) return null;
 
   const system =
     `You are an irrigation technician identifying ONE lawn/garden sprinkler head from a single photo. ` +

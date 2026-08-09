@@ -19,7 +19,7 @@ export default function FaqPage() {
       {/* AI/answer-engine structured data */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
 
       <header className="sticky top-0 z-20 backdrop-blur bg-mist/80 border-b border-pine/5">

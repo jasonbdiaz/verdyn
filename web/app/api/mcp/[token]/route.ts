@@ -255,13 +255,31 @@ export async function POST(req: NextRequest, ctx: { params: Promise<{ token: str
   if (!accountId) {
     return NextResponse.json(rpcError(null, -32001, "Invalid or revoked agent key."), { status: 401 });
   }
+  // Cap the payload before parsing — self-hosters have no platform payload
+  // backstop, and an agent's JSON-RPC message/batch is always small.
+  const MAX_MCP_BYTES = 256 * 1024;
+  const MAX_BATCH = 50;
+  const clen = Number(req.headers.get("content-length") ?? 0);
+  if (clen > MAX_MCP_BYTES) {
+    return NextResponse.json(rpcError(null, -32600, "Request body too large."), { status: 413 });
+  }
   let body: unknown;
   try {
-    body = await req.json();
+    const text = await req.text();
+    if (text.length > MAX_MCP_BYTES) {
+      return NextResponse.json(rpcError(null, -32600, "Request body too large."), { status: 413 });
+    }
+    body = JSON.parse(text);
   } catch {
     return NextResponse.json(rpcError(null, -32700, "Parse error"), { status: 400 });
   }
   if (Array.isArray(body)) {
+    if (body.length > MAX_BATCH) {
+      return NextResponse.json(
+        rpcError(null, -32600, `Batch too large (max ${MAX_BATCH} messages).`),
+        { status: 413 },
+      );
+    }
     const out = (await Promise.all(body.map((m) => handleMessage(accountId, m as RpcMessage))))
       .filter((r) => r !== null);
     return out.length ? NextResponse.json(out) : new NextResponse(null, { status: 202 });
